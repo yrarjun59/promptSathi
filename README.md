@@ -34,6 +34,59 @@ No accounts. No tracking. No prompt history. Nothing stored anywhere.
 
 ---
 
+## See it in action
+
+<p align="center">
+  <img src="docs/tutorial.gif" width="720" alt="promptSathi improving a Romanized Nepali prompt">
+</p>
+
+A real session (captured live): a Romanized-Nepali prompt is typed into a chat box, Enter is pressed, Sathi pauses the send and improves it **in Romanized Nepali**, a feedback chip refines it further, and Send-improved delivers it to the chat.
+
+### Walkthrough — Romanized Nepali example
+
+**1. You type the way you speak** — no Devanagari needed:
+
+```
+malai momo shop ko lagi website banaidi, kina ahile hamro shop sanga online kaam gardaina
+```
+
+**2. Press Enter.** Instead of the sloppy prompt going out, Sathi's review panel opens with a rating for your original:
+
+```
+YOUR PROMPT   ★★☆☆☆
+malai momo shop ko lagi website banaidi, kina ahile hamro shop sanga online kaam gardaina
+```
+
+**3. The improved prompt comes back — in Romanized Nepali, never Devanagari, never English:**
+
+```
+Act as an experienced web developer. Malai momo shop ko lagi ek professional,
+mobile-friendly website banaidi. Yo sections harmonu parcha:
+1. Menu — momo ko variety haru, price ra photo sahit
+2. Location — Google Map embed ra shop ko address
+3. Contact — phone number, email ra contact form
+4. Online order form — name, contact, momo selection, quantity
+```
+
+Anything Sathi adds is **highlighted in green** in the panel, so you see exactly what changed. "website", "online order" and other tech words stay naturally mixed — just like you speak.
+
+**4. Refine with one click.** Click *More detail* (or type "make it shorter", "add SEO", anything) and Sathi rewrites it again, keeping the same language and script:
+
+```
+Act as an experienced web developer and local business consultant.
+Malai momo shop ko lagi ek detailed, mobile-first website plan chahiyo…
+```
+
+**5. Send.** *Send improved* types the refined prompt into the chat box and presses Enter for you — with three safety checks so the wrong text can never go out. If anything can't be verified, Sathi stops and asks you to press Enter instead.
+
+Every language keeps its script: English → English, Devanagari Nepali → Devanagari, **Romanized Nepali → Romanized Nepali**.
+
+---
+
+## How it works
+
+---
+
 ## How it works
 
 ```

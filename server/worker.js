@@ -34,12 +34,16 @@ const NEPALI_LATIN_WORDS = new Set([
   "parcha", "chha", "cha", "huncha", "bhayo", "bhane", "sanga", "lagi", "ra",
   "ani", "tara", "ho", "hudaina", "garam", "thap", "diyo", "dinu", "payo",
 ]);
-function routeModel(prompt) {
-  if (/[ऀ-ॿ]/.test(prompt)) return "qwen/qwen3.8-27b"; // Devanagari
+function isNepaliPrompt(prompt) {
+  if (/[ऀ-ॿ]/.test(prompt)) return true; // Devanagari
   const words = prompt.toLowerCase().split(/[^a-z]+/);
   let hits = 0;
   for (const w of words) if (NEPALI_LATIN_WORDS.has(w)) hits++;
-  return hits >= 2 ? "qwen/qwen3.8-27b" : "openai/gpt-oss-120b";
+  return hits >= 2; // romanized Nepali
+}
+
+function routeModel(prompt) {
+  return isNepaliPrompt(prompt) ? "qwen/qwen3.8-27b" : "openai/gpt-oss-120b";
 }
 
 async function resolveModel(key, env, preferred) {
@@ -474,6 +478,12 @@ export default {
 
     const model = await resolveModel(env.GROQ_API_KEY, env, routeModel(prompt));
     const messages = buildMessages({ prompt, improved, feedback });
+    // Deterministic script lock: model memory of the script rule drifts, so
+    // romanized-Nepali inputs get an explicit in-message reinforcement.
+    if (isNepaliPrompt(prompt) && !/[ऀ-ॿ]/.test(prompt)) {
+      messages[messages.length - 1].content +=
+        "\n\n[CRITICAL: This prompt is ROMANIZED NEPALI. Your improved version MUST be in romanized Nepali (Latin script) — never Devanagari, never English. Fix grammar/spelling, add structure, keep the user's exact language style.]";
+    }
     let upstream = await callGroq(env.GROQ_API_KEY, model, messages);
 
     // The model pool rotated between requests — mark it dead, re-resolve, retry once.

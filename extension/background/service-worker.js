@@ -295,8 +295,33 @@ async function resolveModel(key) {
   return MODEL;
 }
 
+const NEPALI_LATIN_WORDS = new Set([
+  "kina", "kasto", "kati", "malai", "hamro", "timro", "yo", "tyo", "testo", "yesto",
+  "garnu", "gara", "garchu", "gare", "banaidi", "banauna", "banaune", "chaiyo",
+  "parcha", "chha", "cha", "huncha", "bhayo", "bhane", "sanga", "lagi", "ra",
+  "ani", "tara", "ho", "hudaina", "garam", "thap", "diyo", "dinu", "payo",
+]);
+function isNepaliPrompt(prompt) {
+  if (/[ऀ-ॿ]/.test(prompt || "")) return true;
+  const words = (prompt || "").toLowerCase().split(/[^a-z]+/);
+  let hits = 0;
+  for (const w of words) if (NEPALI_LATIN_WORDS.has(w)) hits++;
+  return hits >= 2;
+}
+function withScriptLock(payload, messages) {
+  const p = payload.prompt || "";
+  if (isNepaliPrompt(p) && !/[ऀ-ॿ]/.test(p)) {
+    messages = messages.map((m, i) =>
+      i === messages.length - 1
+        ? { ...m, content: m.content + "\n\n[CRITICAL: This prompt is ROMANIZED NEPALI. Your improved version MUST be in romanized Nepali (Latin script) — never Devanagari, never English. Fix grammar/spelling, add structure, keep the user's exact language style.]" }
+        : m
+    );
+  }
+  return messages;
+}
+
 async function groqDirect(key, payload) {
-  const messages = buildMessages(payload);
+  const messages = withScriptLock(payload, buildMessages(payload));
   let res = await callGroqChat(key, await resolveModel(key), messages);
 
   // Model pool rotated between requests — re-resolve once and retry.
@@ -400,7 +425,7 @@ async function callOpenRouter(key, model, messages, useJsonMode) {
 }
 
 async function openRouterDirect(key, payload) {
-  const messages = buildMessages(payload);
+  const messages = withScriptLock(payload, buildMessages(payload));
   let model = await resolveOpenRouterModel(key);
   let res = await callOpenRouter(key, model, messages, true);
 

@@ -667,16 +667,17 @@
 
   // Write the chosen text into the composer and VERIFY it stuck. Returns the
   // verified element, or null if the box is unwritable (SPA swapped nodes).
+  const normText = (v) => (v || "").replace(/\s+/g, " ").trim();
   function writeVerified(chosen) {
     let el = freshComposer();
     if (!el) return null;
-    if (getPromptText(el).trim() !== chosen) {
+    if (normText(getPromptText(el)) !== normText(chosen)) {
       setPromptText(el, chosen);
-      if (getPromptText(el).trim() !== chosen) {
+      if (normText(getPromptText(el)) !== normText(chosen)) {
         el = freshComposer();
         if (!el) return null;
         setPromptText(el, chosen);
-        if (getPromptText(el).trim() !== chosen) return null;
+        if (normText(getPromptText(el)) !== normText(chosen)) return null;
       }
     }
     return el;
@@ -697,13 +698,13 @@
 
     const check = (nextStage) => {
       const el = freshComposer();
-      const cur = el ? getPromptText(el).trim() : "";
+      const cur = el ? normText(getPromptText(el)) : "";
       if (!el || cur === "") {            // gone from the box => sent
         lastSentText = chosen;
         bypass = false;
         return;
       }
-      if (cur === chosen) {               // still sitting there un-sent
+      if (cur === normText(chosen)) {     // still sitting there un-sent
         if (nextStage) { stage = nextStage; setTimeout(attempt, 60); return; }
         bypass = false;
         el.focus();
