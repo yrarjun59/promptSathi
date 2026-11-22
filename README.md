@@ -37,7 +37,7 @@ No accounts. No tracking. No prompt history. Nothing stored anywhere.
 ## See it in action
 
 <p align="center">
-  <video src="docs/tutorial-paced.mp4" width="720" controls autoplay loop muted playsinline></video>
+  <img src="docs/tutorial-paced.gif" width="720" alt="promptSathi improving a Romanized Nepali prompt">
 </p>
 
 A real session (captured live): a Romanized-Nepali prompt is typed into a chat box, Enter is pressed, Sathi pauses the send and improves it **in Romanized Nepali**, a feedback chip refines it further, and Send-improved delivers it to the chat.
