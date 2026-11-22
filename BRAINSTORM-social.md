@@ -7,6 +7,12 @@
 
 ## 1. The idea (user's words, expanded)
 
+**GOAL (refined 2026-11-22): improve social media posts to HIGH QUALITY — for both
+professional and personal posts.** The judge and improved version must adapt tone by
+context: professional posts (LinkedIn, work X/FB accounts) get clean, outcome-focused
+rewrites; personal posts (private FB/IG) keep warmth, humor and authenticity. Quality
+bar is the same as the chat feature: no compromise.
+
 On social platforms (Facebook, Instagram, X/Twitter, LinkedIn, TikTok…), add an
 **"Improve post" button** near the composer that:
 
