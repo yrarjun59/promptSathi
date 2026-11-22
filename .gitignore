@@ -1,0 +1,12 @@
+.DS_Store
+node_modules/
+wrangler.toml.bak
+*.log
+extension/icons/src/preview_*
+extension/icons/src/icon*.html
+.tmp/
+prompt-improver-extension/
+.zcode/
+*.bak
+extension/icons/src/resize*.html
+.wrangler/

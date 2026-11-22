@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>promptSathi</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <img class="logo" src="../icons/icon48.png" alt="">
+    <div class="titles">
+      <strong>promptSathi</strong>
+      <small>your prompt friend</small>
+    </div>
+  </header>
+
+  <section class="row toggle-row">
+    <label for="enabled">Enable promptSathi</label>
+    <input type="checkbox" id="enabled" checked>
+  </section>
+
+  <section class="row toggle-row">
+    <div>
+      <label for="intercept">Pause on Enter to improve</label>
+      <small>When you hit Enter, Sathi reviews the prompt first</small>
+    </div>
+    <input type="checkbox" id="intercept" checked>
+  </section>
+
+  <section class="row">
+    <label for="lang">Voice language</label>
+    <select id="lang">
+      <option value="en-US">English (US)</option>
+      <option value="en-IN">English (India)</option>
+      <option value="ne-NP">नेपाली (Nepali)</option>
+    </select>
+  </section>
+
+  <details class="conn">
+    <summary>
+      <span id="connDot" class="dot"></span>
+      <span id="connLabel">Checking connection…</span>
+      <span class="chev">▾</span>
+    </summary>
+    <div class="card-inner">
+      <div class="modes">
+        <label class="mode"><input type="radio" name="mode" value="server" checked> Sathi server</label>
+        <label class="mode"><input type="radio" name="mode" value="byo"> Groq key</label>
+        <label class="mode"><input type="radio" name="mode" value="openrouter"> OpenRouter</label>
+      </div>
+      <div id="serverBox">
+        <input type="url" id="serverUrl" placeholder="https://promptsathi.<you>.workers.dev" spellcheck="false">
+      </div>
+      <div id="byoBox" hidden>
+        <input type="password" id="groqKey" placeholder="gsk_… (free at console.groq.com/keys)" spellcheck="false" autocomplete="off">
+      </div>
+      <div id="orBox" hidden>
+        <input type="password" id="openrouterKey" placeholder="sk-or-… (free models, openrouter.ai/keys)" spellcheck="false" autocomplete="off">
+      </div>
+      <div class="test-row">
+        <button id="test" class="btn">Test connection</button>
+        <span id="testResult"></span>
+      </div>
+    </div>
+  </details>
+
+  <details class="conn" id="sitesCard">
+    <summary>
+      <span class="dot ok"></span>
+      <span>My AI sites</span>
+      <span class="chev">▾</span>
+    </summary>
+    <div class="card-inner">
+      <div class="site-add">
+        <input type="text" id="siteInput" placeholder="e.g. chat.mistral.ai" spellcheck="false">
+        <button id="siteAdd" class="btn">Add</button>
+      </div>
+      <small class="site-hint">Works on any AI-chat site — Sathi detects the chat box automatically. You'll approve the site permission once.</small>
+      <div class="site-add">
+        <span id="siteMsg" class="site-msg"></span>
+      </div>
+      <ul id="siteList" class="site-list"></ul>
+    </div>
+  </details>
+
+  <footer>
+    <div class="support">
+      <span class="buy-label">Buy me a</span>
+      <span id="supportState" class="support-soon" title="Support links coming soon">☕ · 🥟 <em>wait until I update</em></span>
+      <a id="bmcLink" class="pill pill-coffee" target="_blank" rel="noreferrer" hidden>☕ Coffee</a>
+      <a id="bmmLink" class="pill pill-momo" target="_blank" rel="noreferrer" hidden>
+        <svg class="momo-ico" viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M8 2.2 C4.6 2.2 2.2 5 2.2 8.8 L2.2 11.4 L13.8 11.4 L13.8 8.8 C13.8 5 11.4 2.2 8 2.2 Z" fill="#fff"/>
+          <path d="M8 1 C7.2 1.5 6.9 2.3 7 3.2" fill="none" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M4.6 8.2 Q6.3 7.4 8 8.2 Q9.7 9 11.4 8.2" fill="none" stroke="#e5484d" stroke-width="1" stroke-linecap="round"/>
+          <path d="M5.3 5.4 Q8 4.6 10.7 5.4" fill="none" stroke="#e5484d" stroke-width="1" stroke-linecap="round"/>
+        </svg>
+        Momo
+      </a>
+      <div id="rateStars" class="rate-stars" role="group" aria-label="Rate promptSathi on the Chrome Web Store" title="Rate promptSathi on the Chrome Web Store">
+        <button class="rstar" data-star="1" aria-label="Rate 1 star">☆</button>
+        <button class="rstar" data-star="2" aria-label="Rate 2 stars">☆</button>
+        <button class="rstar" data-star="3" aria-label="Rate 3 stars">☆</button>
+        <button class="rstar" data-star="4" aria-label="Rate 4 stars">☆</button>
+        <button class="rstar" data-star="5" aria-label="Rate 5 stars">☆</button>
+        <span id="rateDone" class="rate-done" role="status" hidden>
+          <button id="rateOpen" class="rate-btn" aria-label="Open the Chrome Web Store listing now">Open store</button>
+          <button id="rateLater" class="rate-btn rate-later" aria-label="Do it later, do not open the store">Do later</button>
+        </span>
+      </div>
+    </div>
+    </div>
+    <div class="privacy">🔒 Prompts are sent only when you press Enter. Nothing is stored anywhere.</div>
+  </footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>
